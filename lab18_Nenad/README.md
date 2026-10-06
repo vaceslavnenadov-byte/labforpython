@@ -24,8 +24,8 @@ python -m pytest -m integration                       # только интег�
 ## Стратегия тестирования
 | Набор | Файл | Кол-во | Что проверяет |
 |---|---|---|---|
-| Unit (Mock Repository/Notifier, patch времени) | `tests/unit/test_routes.py` | 15 | создание рейса, валидация и границы (0, 1, 1000, 1001, пустая строка), дубли, поиск, места |
-| Unit | `tests/unit/test_tickets.py` | 18 | продажа, занятое место, нет мест, границы номера места, возврат 90 % / 50 % / запрет, повторный возврат |
+| Unit (Mock Repository/Notifier, patch времени) | `tests/unit/test_routes.py` | 14 | создание рейса, валидация и границы (0, 1, 1000, 1001, пустая строка), дубли, поиск, места |
+| Unit | `tests/unit/test_tickets.py` | 19 | продажа, занятое место, нет мест, границы номера места, возврат 90 % / 50 % / запрет, повторный возврат |
 | Integration (настоящая SQLite) | `tests/integration/test_sqlite.py` | 3 | полный цикл продажи/возврата/перепродажи, поиск по городу и дате, уникальный индекс места |
 
 * **Mock**: `Mock(spec=RouteRepository)`, `Mock(spec=TicketRepository)`, `Mock()` для уведомлений; проверки
