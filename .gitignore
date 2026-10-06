@@ -11,3 +11,5 @@ lab4_Nenad/data/*
 !lab4_Nenad/data/.gitkeep
 tickets.json
 railway.db
+taxi.db
+.env
