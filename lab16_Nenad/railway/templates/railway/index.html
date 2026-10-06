@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Система «Железная дорога»</h1>
+<p>Поезда, маршруты и станции, продажа билетов и статистика. ЛР №16, вариант 10.</p>
+<p>{% if user.is_authenticated %}Вы вошли как <b>{{ user.username }}</b>{% if user.is_staff %} — администратор{% endif %}.{% else %}Вы не авторизованы: доступны просмотр, поиск и фильтрация.{% endif %}</p>
+<div class="cards">
+  <div class="card"><b>{{ trains_count }}</b>поездов</div>
+  <div class="card"><b>{{ routes_count }}</b>маршрутов</div>
+  <div class="card"><b>{{ stations_count }}</b>станций</div>
+  <div class="card"><b>{{ tickets_count }}</b>проданных билетов</div>
+</div>
+<h2>Ближайшие отправления</h2>
+<table><tr><th>Поезд</th><th>Маршрут</th><th>Отправление</th></tr>
+{% for t in nearest %}<tr><td><a href="{{ t.get_absolute_url }}">{{ t }}</a></td><td>{{ t.route }}</td><td>{{ t.departure|date:"d.m.Y H:i" }}</td></tr>{% endfor %}
+</table>
+<p><a class="btn" href="{% url 'railway:train_list' %}">Все поезда</a> <a class="btn grey" href="{% url 'railway:statistics' %}">Статистика</a></p>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Удаление</h1>
+<p>Вы действительно хотите удалить поезд <b>{{ object }}</b>? Будут удалены и его билеты ({{ object.tickets.count }}).</p>
+<form method="post">{% csrf_token %}<button class="btn">Да, удалить</button> <a href="{{ object.get_absolute_url }}">Отмена</a></form>
+{% endblock %}

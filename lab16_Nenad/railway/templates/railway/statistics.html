@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Статистика{% endblock %}
+{% block content %}
+<h1>Статистика</h1>
+<div class="cards">
+  <div class="card"><b>{{ trains }}</b>поездов всего</div>
+  <div class="card"><b>{{ active }}</b>в продаже</div>
+  <div class="card"><b>{{ tickets }}</b>билетов продано</div>
+  <div class="card"><b>{{ returned }}</b>возвращено</div>
+  <div class="card"><b>{{ revenue|floatformat:2 }} ₽</b>выручка</div>
+  <div class="card"><b>{{ avg_price|floatformat:2 }} ₽</b>средняя цена билета</div>
+  <div class="card"><b>{{ avg_train_price|floatformat:0 }} ₽</b>средний тариф поезда</div>
+  <div class="card"><b>{{ passengers }}</b>пассажиров</div>
+</div>
+<p>Маршрут-лидер: <b>{{ leader_route }}</b> ({{ leader_route.trains_count }} поездов).
+   Самый загруженный поезд: <b>{{ busiest }}</b> ({{ busiest.sold }} билетов).</p>
+<h2>Поезда по типам</h2>
+<table><tr><th>Тип</th><th>Количество</th></tr>{% for row in by_type %}<tr><td>{{ row.label }}</td><td>{{ row.n }}</td></tr>{% endfor %}</table>
+{% endblock %}

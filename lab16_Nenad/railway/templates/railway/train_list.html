@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Поезда{% endblock %}
+{% block content %}
+<h1>Поезда <small>({{ page_obj.paginator.count }})</small></h1>
+<form class="filters" method="get">
+  <input name="q" value="{{ query }}" placeholder="Номер, название, маршрут, город">
+  <select name="type"><option value="">Любой тип</option>{% for v, l in types %}<option value="{{ v }}" {% if request.GET.type == v %}selected{% endif %}>{{ l }}</option>{% endfor %}</select>
+  <select name="status"><option value="">Любой статус</option>{% for v, l in statuses %}<option value="{{ v }}" {% if request.GET.status == v %}selected{% endif %}>{{ l }}</option>{% endfor %}</select>
+  <select name="route"><option value="">Любой маршрут</option>{% for r in routes %}<option value="{{ r.id }}" {% if request.GET.route == r.id|stringformat:"s" %}selected{% endif %}>{{ r }}</option>{% endfor %}</select>
+  <select name="sort">
+    <option value="departure">по отправлению ↑</option>
+    <option value="-departure" {% if request.GET.sort == "-departure" %}selected{% endif %}>по отправлению ↓</option>
+    <option value="price" {% if request.GET.sort == "price" %}selected{% endif %}>по цене ↑</option>
+    <option value="-price" {% if request.GET.sort == "-price" %}selected{% endif %}>по цене ↓</option>
+    <option value="free" {% if request.GET.sort == "free" %}selected{% endif %}>по свободным местам</option>
+    <option value="number" {% if request.GET.sort == "number" %}selected{% endif %}>по номеру</option>
+  </select>
+  <button class="btn">Найти</button> <a href="{% url 'railway:train_list' %}">Сбросить</a>
+</form>
+<table>
+  <tr><th>Поезд</th><th>Маршрут</th><th>Тип</th><th>Отправление</th><th>Цена</th><th>Свободно</th><th>Статус</th>{% if user.is_staff %}<th></th>{% endif %}</tr>
+  {% for t in page_obj %}
+  <tr><td><a href="{{ t.get_absolute_url }}">{{ t }}</a></td><td>{{ t.route }}</td><td>{{ t.get_train_type_display }}</td>
+      <td>{{ t.departure|date:"d.m.Y H:i" }}</td><td>{{ t.base_price }} ₽</td><td>{{ t.free }} / {{ t.seats_total }}</td>
+      <td>{{ t.get_status_display }}</td>
+      {% if user.is_staff %}<td><a href="{% url 'railway:train_edit' t.pk %}">изменить</a> · <a href="{% url 'railway:train_delete' t.pk %}">удалить</a></td>{% endif %}</tr>
+  {% empty %}<tr><td colspan="8">Ничего не найдено.</td></tr>{% endfor %}
+</table>
+<div class="pagination">
+  {% if page_obj.has_previous %}<a href="?{{ params }}&page={{ page_obj.previous_page_number }}">← Назад</a>{% endif %}
+  {% for n in page_obj.paginator.page_range %}{% if n == page_obj.number %}<b>{{ n }}</b>{% else %}<a href="?{{ params }}&page={{ n }}">{{ n }}</a>{% endif %}{% endfor %}
+  {% if page_obj.has_next %}<a href="?{{ params }}&page={{ page_obj.next_page_number }}">Далее →</a>{% endif %}
+</div>
+{% if user.is_staff %}<a class="btn" href="{% url 'railway:train_create' %}">+ Добавить поезд</a>{% endif %}
+{% endblock %}

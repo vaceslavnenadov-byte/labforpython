@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Железная дорога{% endblock %}</title>
+<style>
+  body { margin: 0; font-family: Arial, sans-serif; background: #f4f6fa; color: #1c2733; }
+  nav { background: #9b1c1c; padding: 12px 24px; display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+  nav a, nav span, nav button { color: #fff; text-decoration: none; background: none; border: 0; font-size: 15px; cursor: pointer; }
+  nav .brand { font-weight: bold; } nav .right { margin-left: auto; display: flex; gap: 12px; align-items: center; }
+  main { max-width: 1100px; margin: 0 auto; padding: 18px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; } th, td { padding: 8px; border-bottom: 1px solid #e2e6ec; text-align: left; font-size: 14px; }
+  th { background: #edf0f4; }
+  .btn { background: #9b1c1c; color: #fff; padding: 7px 14px; border-radius: 6px; text-decoration: none; border: 0; cursor: pointer; display: inline-block; }
+  .btn.grey { background: #6b7684; } .msg { padding: 10px; border-radius: 6px; background: #dff2e1; margin-bottom: 10px; }
+  .cards { display: flex; gap: 12px; flex-wrap: wrap; } .card { background: #fff; padding: 14px 18px; border-radius: 8px; min-width: 150px; }
+  .card b { display: block; font-size: 24px; } form.filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+  input, select { padding: 6px; } .errorlist { color: #b00020; } .pagination { margin: 12px 0; display: flex; gap: 10px; }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="{% url 'railway:index' %}">🚆 Железная дорога</a>
+  <a href="{% url 'railway:train_list' %}">Поезда</a>
+  <a href="{% url 'railway:station_list' %}">Станции</a>
+  <a href="{% url 'railway:statistics' %}">Статистика</a>
+  {% if user.is_staff %}<a href="{% url 'railway:train_create' %}">+ Поезд</a><a href="{% url 'admin:index' %}">Admin</a>{% endif %}
+  <span class="right">
+    {% if user.is_authenticated %}
+      <span>{{ user.username }}{% if user.is_staff %} (администратор){% endif %}</span>
+      <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button>Выйти</button></form>
+    {% else %}<a href="{% url 'login' %}">Войти</a>{% endif %}
+  </span>
+</nav>
+<main>
+  {% for message in messages %}<div class="msg">{{ message }}</div>{% endfor %}
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}{% if object %}Изменение{% else %}Новый поезд{% endif %}{% endblock %}
+{% block content %}
+<h1>{% if object %}Изменение поезда {{ object }}{% else %}Новый поезд{% endif %}</h1>
+<form method="post">{% csrf_token %}
+  {{ form.non_field_errors }}
+  {{ form.as_p }}
+  <button class="btn">Сохранить</button>
+  <a href="{% if object %}{{ object.get_absolute_url }}{% else %}{% url 'railway:train_list' %}{% endif %}">Отмена</a>
+</form>
+{% endblock %}

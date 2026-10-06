@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Станции</h1>
+<table><tr><th>Станция</th><th>Город</th><th>Маршрутов</th></tr>
+{% for s in page_obj %}<tr><td>{{ s.name }}</td><td>{{ s.city }}</td><td>{{ s.routes_count }}</td></tr>{% endfor %}</table>
+<div class="pagination">{% for n in page_obj.paginator.page_range %}{% if n == page_obj.number %}<b>{{ n }}</b>{% else %}<a href="?page={{ n }}">{{ n }}</a>{% endif %}{% endfor %}</div>
+{% endblock %}
