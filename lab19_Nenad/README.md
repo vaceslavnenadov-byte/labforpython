@@ -56,14 +56,14 @@ python -m pytest -v                # 34 теста
 ## Отказоустойчивость (`common/resilience.py`)
 * **Retry**: до 3 попыток, тайм-аут 2 с, экспоненциальная задержка 0.2 → 0.4 с; повторяются только сетевые ошибки и 5xx.
 * **Circuit Breaker**: после 3 неудач подряд — OPEN (запросы сразу получают 503 без обращения к сервису);
-  через 10 с — HALF_OPEN (один пробный запрос): успех → CLOSED, ошибка → OPEN. Состояние: `GET /orders/circuit`.
+  через 10 с — HALF_OPEN (один пробный запрос): успех → CLOSED, ошибка → OPEN. Состояние: `GET /circuit` (order-service, порт 8003).
 * Шлюз не открывает предохранитель на сервис, который сам отвечает 503 из-за своей зависимости (`fail_on_5xx=False`);
   эта ошибка была найдена при сквозной проверке.
 
 Проверка (локально, PostgreSQL + Redis):
 ```
 order attempt 1..4 -> 503
-GET /orders/circuit  → {"passenger-service": "OPEN", "driver-service": "CLOSED"}
+GET :8003/circuit    → {"passenger-service": "OPEN", "driver-service": "CLOSED"}
 GET /status          → passenger-service ✗ ... Connection refused; остальные ✓ healthy
 order-service WARNING попытка 1/3 не удалась (Connection refused), повтор через 0.2 с
 ```
