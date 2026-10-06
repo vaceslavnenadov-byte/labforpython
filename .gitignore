@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+.env
+*.log
+*.db
+*.sqlite3
+lab4_Nenad/data/*
+!lab4_Nenad/data/.gitkeep
