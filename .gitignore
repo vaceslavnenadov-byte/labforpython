@@ -13,3 +13,4 @@ tickets.json
 railway.db
 taxi.db
 .env
+.coverage
