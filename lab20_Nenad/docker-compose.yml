@@ -1,0 +1,50 @@
+services:
+  app:
+    build: .
+    image: taxi-api:latest
+    ports:
+      - "8000:8000"
+    env_file: .env
+    environment:
+      DATABASE_HOST: db
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    networks: [taxi]
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-taxi}
+      POSTGRES_USER: ${DATABASE_USER:-taxi}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?Задайте DATABASE_PASSWORD в .env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data      # данные переживают docker compose down
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER:-taxi} -d ${DATABASE_NAME:-taxi}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks: [taxi]
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 10
+    networks: [taxi]
+
+networks:
+  taxi:
+
+volumes:
+  postgres_data:
+  redis_data:
