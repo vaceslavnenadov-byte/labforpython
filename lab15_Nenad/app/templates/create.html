@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Новая поездка{% endblock %}
+{% block content %}
+<h1>Новая поездка</h1>
+<form method="post" class="form">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <label>Клиент
+    <select name="client_id" required>{% for c in clients %}<option value="{{ c.id }}" {% if form.get('client_id') == c.id|string %}selected{% endif %}>{{ c.full_name }}</option>{% endfor %}</select>
+  </label>
+  <label>Водитель
+    <select name="driver_id" required>{% for d in drivers %}<option value="{{ d.id }}" {% if form.get('driver_id') == d.id|string %}selected{% endif %}>{{ d.full_name }} — {{ d.car_class.title }}</option>{% endfor %}</select>
+  </label>
+  <label>Откуда <input name="pickup" required value="{{ form.get('pickup', '') }}"></label>
+  <label>Куда <input name="destination" required value="{{ form.get('destination', '') }}"></label>
+  <label>Расстояние, км <input name="distance_km" type="number" step="0.1" min="0.1" required value="{{ form.get('distance_km', '') }}"></label>
+  <label>Время, мин <input name="duration_min" type="number" min="1" required value="{{ form.get('duration_min', '') }}"></label>
+  <button>Создать и рассчитать стоимость</button>
+</form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Поездка №{{ trip.id }}{% endblock %}
+{% block content %}
+<h1>Поездка №{{ trip.id }} <span class="status {{ trip.status.value }}">{{ trip.status.title }}</span></h1>
+<dl>
+  <dt>Маршрут</dt><dd>{{ trip.pickup }} → {{ trip.destination }}</dd>
+  <dt>Дата</dt><dd>{{ trip.created_at.strftime("%d.%m.%Y %H:%M") }}</dd>
+  <dt>Расстояние / время</dt><dd>{{ trip.distance_km }} км, {{ trip.duration_min }} мин</dd>
+  <dt>Стоимость</dt><dd><b>{{ "%.2f"|format(trip.cost) }} ₽</b></dd>
+  <dt>Клиент</dt><dd><a href="{{ url_for('web.client_detail', client_id=trip.client.id) }}">{{ trip.client.full_name }}</a>, {{ trip.client.phone }}</dd>
+  <dt>Водитель</dt><dd><a href="{{ url_for('web.driver_detail', driver_id=trip.driver.id) }}">{{ trip.driver.full_name }}</a>,
+      {{ trip.driver.car_model }} {{ trip.driver.car_plate }} ({{ trip.driver.car_class.title }}), ★ {{ trip.driver.rating }}</dd>
+</dl>
+<div class="actions">
+  <a class="button" href="{{ url_for('web.trip_edit', trip_id=trip.id) }}">Редактировать</a>
+  <form method="post" action="{{ url_for('web.trip_delete', trip_id=trip.id) }}" onsubmit="return confirm('Удалить поездку?');">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <button class="danger">Удалить</button>
+  </form>
+</div>
+{% endblock %}

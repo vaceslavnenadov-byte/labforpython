@@ -1,0 +1,21 @@
+{% set rows = trips if trips is defined else recent %}
+{% if rows %}
+<table>
+  <tr><th>№</th><th>Дата</th><th>Маршрут</th><th>Клиент</th><th>Водитель</th><th>Класс</th><th>Км</th><th>Стоимость</th><th>Статус</th></tr>
+  {% for t in rows %}
+  <tr>
+    <td><a href="{{ url_for('web.trip_detail', trip_id=t.id) }}">{{ t.id }}</a></td>
+    <td>{{ t.created_at.strftime("%d.%m %H:%M") }}</td>
+    <td>{{ t.pickup }} → {{ t.destination }}</td>
+    <td><a href="{{ url_for('web.client_detail', client_id=t.client.id) }}">{{ t.client.full_name }}</a></td>
+    <td><a href="{{ url_for('web.driver_detail', driver_id=t.driver.id) }}">{{ t.driver.full_name }}</a></td>
+    <td>{{ t.driver.car_class.title }}</td>
+    <td>{{ t.distance_km }}</td>
+    <td>{{ "%.2f"|format(t.cost) }} ₽</td>
+    <td><span class="status {{ t.status.value }}">{{ t.status.title }}</span></td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p class="empty">Поездки не найдены.</p>
+{% endif %}

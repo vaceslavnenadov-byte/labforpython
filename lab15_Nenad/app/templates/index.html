@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+<h1>Служба такси</h1>
+<p>Учёт водителей, клиентов и поездок: создание заказа с автоматическим расчётом стоимости, история поездок.</p>
+<div class="cards">
+  <div class="card"><b>{{ summary.trips }}</b><span>поездок</span></div>
+  <div class="card"><b>{{ summary.completed }}</b><span>завершено</span></div>
+  <div class="card"><b>{{ "%.0f"|format(summary.revenue) }} ₽</b><span>выручка</span></div>
+  <div class="card"><b>{{ summary.drivers }}</b><span>водителей</span></div>
+  <div class="card"><b>{{ summary.clients }}</b><span>клиентов</span></div>
+</div>
+<h2>Последние поездки</h2>
+{% include "_trips_table.html" with context %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Клиенты{% endblock %}
+{% block content %}
+<h1>Клиенты</h1>
+<table>
+  <tr><th>ФИО</th><th>Телефон</th><th>Email</th><th>Поездок</th><th>Потрачено</th></tr>
+  {% for c in clients %}
+  <tr><td><a href="{{ url_for('web.client_detail', client_id=c.id) }}">{{ c.full_name }}</a></td><td>{{ c.phone }}</td>
+      <td>{{ c.email or "—" }}</td><td>{{ c.trips|length }}</td>
+      <td>{{ "%.2f"|format(c.trips|sum(attribute="cost")) }} ₽</td></tr>
+  {% endfor %}
+</table>
+<h2>Добавить клиента</h2>
+<form method="post" class="form inline">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <input name="full_name" placeholder="ФИО" required>
+  <input name="phone" placeholder="Телефон" required>
+  <input name="email" type="email" placeholder="Email">
+  <button>Добавить</button>
+</form>
+{% endblock %}

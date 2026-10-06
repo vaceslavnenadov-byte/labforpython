@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Водители{% endblock %}
+{% block content %}
+<h1>Водители</h1>
+<table>
+  <tr><th>ФИО</th><th>Телефон</th><th>Автомобиль</th><th>Класс</th><th>Рейтинг</th><th>Поездок</th></tr>
+  {% for d in drivers %}
+  <tr><td><a href="{{ url_for('web.driver_detail', driver_id=d.id) }}">{{ d.full_name }}</a></td><td>{{ d.phone }}</td>
+      <td>{{ d.car_model }} {{ d.car_plate }}</td><td>{{ d.car_class.title }}</td><td>★ {{ d.rating }}</td><td>{{ d.trips|length }}</td></tr>
+  {% endfor %}
+</table>
+<h2>Добавить водителя</h2>
+<form method="post" class="form inline">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <input name="full_name" placeholder="ФИО" required>
+  <input name="phone" placeholder="Телефон" required>
+  <input name="car_model" placeholder="Модель авто" required>
+  <input name="car_plate" placeholder="Госномер" required>
+  <select name="car_class">{% for c in CarClass %}<option value="{{ c.value }}">{{ c.title }}</option>{% endfor %}</select>
+  <button>Добавить</button>
+</form>
+{% endblock %}

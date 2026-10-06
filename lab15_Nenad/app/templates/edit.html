@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Редактирование №{{ trip.id }}{% endblock %}
+{% block content %}
+<h1>Редактирование поездки №{{ trip.id }}</h1>
+<form method="post" class="form">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <label>Водитель
+    <select name="driver_id">{% for d in drivers %}<option value="{{ d.id }}" {% if d.id == trip.driver_id %}selected{% endif %}>{{ d.full_name }} — {{ d.car_class.title }}</option>{% endfor %}</select>
+  </label>
+  <label>Откуда <input name="pickup" value="{{ trip.pickup }}" required></label>
+  <label>Куда <input name="destination" value="{{ trip.destination }}" required></label>
+  <label>Расстояние, км <input name="distance_km" type="number" step="0.1" value="{{ trip.distance_km }}" required></label>
+  <label>Время, мин <input name="duration_min" type="number" value="{{ trip.duration_min }}" required></label>
+  <label>Статус
+    <select name="status">{% for s in TripStatus %}<option value="{{ s.value }}" {% if s == trip.status %}selected{% endif %}>{{ s.title }}</option>{% endfor %}</select>
+  </label>
+  <button>Сохранить</button>
+  <a href="{{ url_for('web.trip_detail', trip_id=trip.id) }}">Отмена</a>
+</form>
+{% endblock %}

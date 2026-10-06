@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ driver.full_name }}{% endblock %}
+{% block content %}
+<h1>{{ driver.full_name }}</h1>
+<p>{{ driver.car_model }} {{ driver.car_plate }} — {{ driver.car_class.title }}, ★ {{ driver.rating }}, тел. {{ driver.phone }}</p>
+<h2>История поездок ({{ driver.trips|length }})</h2>
+{% set trips = driver.trips|sort(attribute="created_at", reverse=true) %}
+{% include "_trips_table.html" with context %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ client.full_name }}{% endblock %}
+{% block content %}
+<h1>{{ client.full_name }}</h1>
+<p>Телефон: {{ client.phone }}{% if client.email %}, email: {{ client.email }}{% endif %}</p>
+<h2>История поездок</h2>
+{% set trips = client.trips|sort(attribute="created_at", reverse=true) %}
+{% include "_trips_table.html" with context %}
+<p><a class="button" href="{{ url_for('web.trip_create', client_id=client.id) }}">Заказать поездку</a></p>
+{% endblock %}
