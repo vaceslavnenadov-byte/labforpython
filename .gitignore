@@ -9,3 +9,4 @@ venv/
 *.sqlite3
 lab4_Nenad/data/*
 !lab4_Nenad/data/.gitkeep
+tickets.json
