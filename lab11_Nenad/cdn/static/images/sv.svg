@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="162" height="160" viewBox="0 0 162 160">
+<rect x="5" y="25" width="152" height="120" rx="12" fill="#f4f6fb" stroke="#2b4c7e" stroke-width="3"/>
+<text x="12" y="18" font-family="Arial" font-size="14" fill="#2b4c7e">Схема вагона: СВ (6 мест)</text>
+<rect x="30" y="40" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="44" y="65" text-anchor="middle" font-family="Arial" font-size="12">1</text>
+<rect x="64" y="40" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="78" y="65" text-anchor="middle" font-family="Arial" font-size="12">2</text>
+<rect x="98" y="40" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="112" y="65" text-anchor="middle" font-family="Arial" font-size="12">3</text>
+<line x1="60" y1="30" x2="60" y2="140" stroke="#2b4c7e" stroke-dasharray="4"/>
+<line x1="94" y1="30" x2="94" y2="140" stroke="#2b4c7e" stroke-dasharray="4"/>
+<rect x="30" y="92" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="44" y="117" text-anchor="middle" font-family="Arial" font-size="12">4</text>
+<rect x="64" y="92" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="78" y="117" text-anchor="middle" font-family="Arial" font-size="12">5</text>
+<rect x="98" y="92" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="112" y="117" text-anchor="middle" font-family="Arial" font-size="12">6</text>
+<line x1="60" y1="30" x2="60" y2="140" stroke="#2b4c7e" stroke-dasharray="4"/>
+<line x1="94" y1="30" x2="94" y2="140" stroke="#2b4c7e" stroke-dasharray="4"/>
+</svg>

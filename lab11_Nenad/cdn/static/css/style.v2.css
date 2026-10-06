@@ -1,0 +1,4 @@
+/* Версия 2: новое имя файла → браузер и CDN загрузят его заново (cache busting) */
+body { font-family: Arial, sans-serif; background: #f4f6fb; color: #1d2b3a; }
+.wagon { display: inline-block; margin: 16px; padding: 12px; border: 2px solid #2b4c7e; border-radius: 12px; }
+.wagon h3 { margin: 0 0 8px; }

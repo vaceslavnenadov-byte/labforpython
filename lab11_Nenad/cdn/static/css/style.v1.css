@@ -1,0 +1,3 @@
+/* Версия 1 стилей страницы со схемами вагонов */
+body { font-family: Arial, sans-serif; background: #ffffff; color: #1d2b3a; }
+.wagon { display: inline-block; margin: 12px; padding: 8px; border: 1px solid #2b4c7e; border-radius: 8px; }

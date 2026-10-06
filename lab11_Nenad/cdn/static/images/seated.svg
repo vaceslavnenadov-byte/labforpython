@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="160" viewBox="0 0 400 160">
+<rect x="5" y="25" width="390" height="120" rx="12" fill="#f4f6fb" stroke="#2b4c7e" stroke-width="3"/>
+<text x="12" y="18" font-family="Arial" font-size="14" fill="#2b4c7e">Схема вагона: сидячий (20 мест)</text>
+<rect x="30" y="40" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="44" y="65" text-anchor="middle" font-family="Arial" font-size="12">1</text>
+<rect x="64" y="40" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="78" y="65" text-anchor="middle" font-family="Arial" font-size="12">2</text>
+<rect x="98" y="40" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="112" y="65" text-anchor="middle" font-family="Arial" font-size="12">3</text>
+<rect x="132" y="40" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="146" y="65" text-anchor="middle" font-family="Arial" font-size="12">4</text>
+<rect x="166" y="40" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="180" y="65" text-anchor="middle" font-family="Arial" font-size="12">5</text>
+<rect x="200" y="40" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="214" y="65" text-anchor="middle" font-family="Arial" font-size="12">6</text>
+<rect x="234" y="40" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="248" y="65" text-anchor="middle" font-family="Arial" font-size="12">7</text>
+<rect x="268" y="40" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="282" y="65" text-anchor="middle" font-family="Arial" font-size="12">8</text>
+<rect x="302" y="40" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="316" y="65" text-anchor="middle" font-family="Arial" font-size="12">9</text>
+<rect x="336" y="40" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="350" y="65" text-anchor="middle" font-family="Arial" font-size="12">10</text>
+<rect x="30" y="92" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="44" y="117" text-anchor="middle" font-family="Arial" font-size="12">11</text>
+<rect x="64" y="92" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="78" y="117" text-anchor="middle" font-family="Arial" font-size="12">12</text>
+<rect x="98" y="92" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="112" y="117" text-anchor="middle" font-family="Arial" font-size="12">13</text>
+<rect x="132" y="92" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="146" y="117" text-anchor="middle" font-family="Arial" font-size="12">14</text>
+<rect x="166" y="92" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="180" y="117" text-anchor="middle" font-family="Arial" font-size="12">15</text>
+<rect x="200" y="92" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="214" y="117" text-anchor="middle" font-family="Arial" font-size="12">16</text>
+<rect x="234" y="92" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="248" y="117" text-anchor="middle" font-family="Arial" font-size="12">17</text>
+<rect x="268" y="92" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="282" y="117" text-anchor="middle" font-family="Arial" font-size="12">18</text>
+<rect x="302" y="92" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="316" y="117" text-anchor="middle" font-family="Arial" font-size="12">19</text>
+<rect x="336" y="92" width="28" height="40" rx="5" fill="#9fc5e8" stroke="#2b4c7e"/>
+<text x="350" y="117" text-anchor="middle" font-family="Arial" font-size="12">20</text>
+</svg>
