@@ -1,0 +1,94 @@
+# Запуск: docker compose up --build   →  API Gateway: http://localhost:8000/docs
+x-db-env: &db-env
+  POSTGRES_USER: taxi
+  POSTGRES_PASSWORD: ${DB_PASSWORD:-taxi}
+
+services:
+  gateway:
+    build: {context: ., dockerfile: gateway/Dockerfile}
+    ports: ["8000:8000"]
+    environment:
+      PASSENGER_SERVICE_URL: http://passenger-service:8000
+      DRIVER_SERVICE_URL: http://driver-service:8000
+      ORDER_SERVICE_URL: http://order-service:8000
+      NOTIFICATION_SERVICE_URL: http://notification-service:8000
+    depends_on: [passenger-service, driver-service, order-service, notification-service]
+    networks: [backend]
+
+  passenger-service:
+    build: {context: ., dockerfile: passenger_service/Dockerfile}
+    environment:
+      DATABASE_URL: postgresql+psycopg://taxi:${DB_PASSWORD:-taxi}@passenger-db:5432/passengers
+      BROKER_URL: amqp://guest:guest@broker:5672/
+    depends_on:
+      passenger-db: {condition: service_healthy}
+      broker: {condition: service_healthy}
+    networks: [backend]
+
+  driver-service:
+    build: {context: ., dockerfile: driver_service/Dockerfile}
+    environment:
+      DATABASE_URL: postgresql+psycopg://taxi:${DB_PASSWORD:-taxi}@driver-db:5432/drivers
+      BROKER_URL: amqp://guest:guest@broker:5672/
+    depends_on:
+      driver-db: {condition: service_healthy}
+      broker: {condition: service_healthy}
+    networks: [backend]
+
+  order-service:
+    build: {context: ., dockerfile: order_service/Dockerfile}
+    environment:
+      DATABASE_URL: postgresql+psycopg://taxi:${DB_PASSWORD:-taxi}@order-db:5432/orders
+      BROKER_URL: amqp://guest:guest@broker:5672/
+      PASSENGER_SERVICE_URL: http://passenger-service:8000
+      DRIVER_SERVICE_URL: http://driver-service:8000
+    depends_on:
+      order-db: {condition: service_healthy}
+      broker: {condition: service_healthy}
+    networks: [backend]
+
+  notification-service:
+    build: {context: ., dockerfile: notification_service/Dockerfile}
+    environment:
+      DATABASE_URL: sqlite:////data/notifications.db
+      BROKER_URL: amqp://guest:guest@broker:5672/
+    volumes: [notification_data:/data]
+    depends_on:
+      broker: {condition: service_healthy}
+    networks: [backend]
+
+  passenger-db:
+    image: postgres:16
+    environment: {<<: *db-env, POSTGRES_DB: passengers}
+    volumes: [passenger_data:/var/lib/postgresql/data]
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U taxi"], interval: 5s, retries: 10}
+    networks: [backend]
+
+  driver-db:
+    image: postgres:16
+    environment: {<<: *db-env, POSTGRES_DB: drivers}
+    volumes: [driver_data:/var/lib/postgresql/data]
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U taxi"], interval: 5s, retries: 10}
+    networks: [backend]
+
+  order-db:
+    image: postgres:16
+    environment: {<<: *db-env, POSTGRES_DB: orders}
+    volumes: [order_data:/var/lib/postgresql/data]
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U taxi"], interval: 5s, retries: 10}
+    networks: [backend]
+
+  broker:
+    image: rabbitmq:3-management
+    ports: ["15672:15672"]          # веб-интерфейс RabbitMQ (guest/guest)
+    healthcheck: {test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"], interval: 10s, retries: 10}
+    networks: [backend]
+
+networks:
+  backend:
+
+volumes:
+  passenger_data:
+  driver_data:
+  order_data:
+  notification_data:
