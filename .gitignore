@@ -14,3 +14,4 @@ railway.db
 taxi.db
 .env
 .coverage
+dump.rdb
